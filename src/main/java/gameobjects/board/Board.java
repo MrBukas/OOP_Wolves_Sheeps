@@ -6,10 +6,14 @@ public class Board {
     private BoardCell[][] gameBoard;
 
     public Board(File boardData) {
-        BoardMethods.readBoard(boardData);
+        gameBoard = BoardMethods.readBoard(boardData).gameBoard;
     }
 
     public Board(BoardCell[][] boardCells){
         gameBoard = boardCells;
+    }
+
+    public BoardCell[][] getGameBoard() {
+        return gameBoard;
     }
 }

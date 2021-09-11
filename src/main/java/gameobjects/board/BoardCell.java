@@ -1,12 +1,15 @@
 package gameobjects.board;
 
+import gameobjects.units.Unit;
+
 public class BoardCell {
     private CellState state;
     private CellColor color;
-    private String letterCoordinate;
+    private char letterCoordinate;
     private Integer numberCoordinate;
+    private Unit unit;
 
-    public BoardCell(String letterCoordinate, Integer numberCoordinate, CellColor color) {
+    public BoardCell(char letterCoordinate, Integer numberCoordinate, CellColor color) {
         this.letterCoordinate = letterCoordinate;
         this.numberCoordinate = numberCoordinate;
         state = CellState.FREE;
@@ -17,7 +20,7 @@ public class BoardCell {
         new BoardCell(xCoordinate,yCoordinate, CellState.FREE, color);
     }
 
-    public BoardCell(String letterCoordinate, Integer numberCoordinate, CellState state, CellColor color) {
+    public BoardCell(char letterCoordinate, Integer numberCoordinate, CellState state, CellColor color) {
         this.state = state;
         this.letterCoordinate = letterCoordinate;
         this.numberCoordinate = numberCoordinate;
@@ -25,7 +28,7 @@ public class BoardCell {
     }
 
     public BoardCell(int xCoordinate, int yCoordinate, CellState state, CellColor color) {
-        this.letterCoordinate = "A";//TODO Подставить значение буквы из числа
+        this.letterCoordinate = BoardMethods.numberToChar(xCoordinate);
         this.numberCoordinate = yCoordinate + 1;
         this.state = state;
         this.color = color;
@@ -39,11 +42,11 @@ public class BoardCell {
         this.state = state;
     }
 
-    public String getLetterCoordinate() {
+    public char getLetterCoordinate() {
         return letterCoordinate;
     }
 
-    public void setLetterCoordinate(String letterCoordinate) {
+    public void setLetterCoordinate(char letterCoordinate) {
         this.letterCoordinate = letterCoordinate;
     }
 
