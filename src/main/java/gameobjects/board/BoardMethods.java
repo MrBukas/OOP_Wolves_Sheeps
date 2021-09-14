@@ -1,5 +1,8 @@
 package gameobjects.board;
 
+import gameobjects.units.Unit;
+import gameobjects.units.UnitMethods;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
@@ -62,11 +65,19 @@ public class BoardMethods {
         }
     }
 
-    public static int letterToNumber(char letter){
-        return Character.getNumericValue(letter) - 9;
-    }
 
-    public static char numberToChar(int coordinate){//Не работает
-        return (char) (coordinate + 9);//TODO Подставить значение буквы из числа
+    public static boolean moveUnit(Board board,
+                                   char letterStart, int numberStart,
+                                   char letterEnd, int numberEnd){
+        BoardCell startCell = board.getCell(letterStart, numberStart);
+        BoardCell endCell = board.getCell(letterEnd, numberEnd);
+        Unit unit = startCell.getUnit();
+        if (UnitMethods.checkIfCanWalk(board,endCell,unit)){
+            return false;
+        }
+        endCell.setUnit(startCell.getUnit());
+        startCell.clearUnit();
+        return true;
+
     }
 }

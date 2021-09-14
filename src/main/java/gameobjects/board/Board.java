@@ -16,4 +16,16 @@ public class Board {
     public BoardCell[][] getGameBoard() {
         return gameBoard;
     }
+
+    public BoardCell getCell(int height, int width){
+        return gameBoard[height][width];
+    }
+
+    public int getHeight(){
+        return gameBoard.length;
+    }
+
+    public int getWidth(){
+        return gameBoard[0].length;
+    }
 }

@@ -1,5 +1,6 @@
 package gameobjects.board;
 
+import gameengine.Coordinate;
 import gameobjects.units.Unit;
 
 public class BoardCell {
@@ -7,7 +8,7 @@ public class BoardCell {
     private CellColor color;
     private char letterCoordinate;
     private Integer numberCoordinate;
-    private Unit unit;
+    private Unit unit = null;
 
     public BoardCell(char letterCoordinate, Integer numberCoordinate, CellColor color) {
         this.letterCoordinate = letterCoordinate;
@@ -28,7 +29,7 @@ public class BoardCell {
     }
 
     public BoardCell(int xCoordinate, int yCoordinate, CellState state, CellColor color) {
-        this.letterCoordinate = BoardMethods.numberToChar(xCoordinate);
+        this.letterCoordinate = Coordinate.numberToChar(xCoordinate);
         this.numberCoordinate = yCoordinate + 1;
         this.state = state;
         this.color = color;
@@ -64,5 +65,17 @@ public class BoardCell {
 
     public void setColor(CellColor color) {
         this.color = color;
+    }
+
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+
+    public void clearUnit(){
+        unit = null;
     }
 }
