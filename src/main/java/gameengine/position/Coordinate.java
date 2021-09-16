@@ -1,4 +1,4 @@
-package gameengine;
+package gameengine.position;
 
 public class Coordinate {
     private char letter;
@@ -24,11 +24,9 @@ public class Coordinate {
     public void setNumber(int number) {
         this.number = number;
     }
-    public static int letterToNumber(char letter){
-        return Character.getNumericValue(letter) - 9;
-    }
 
-    public static char numberToChar(int coordinate){//Не работает
-        return (char) (coordinate + 9);//TODO Подставить значение буквы из числа
+
+    public static char numberToChar(int coordinate){//Не факт что работает корректно
+        return (char) (coordinate + 65);
     }
 }

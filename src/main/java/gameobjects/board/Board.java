@@ -18,7 +18,7 @@ public class Board {
     }
 
     public BoardCell getCell(int height, int width){
-        return gameBoard[height][width];
+        return gameBoard[height][width];//TODO Проверить правильно ли используется в других местах
     }
 
     public int getHeight(){

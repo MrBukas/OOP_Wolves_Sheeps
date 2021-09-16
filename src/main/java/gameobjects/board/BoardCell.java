@@ -1,7 +1,9 @@
 package gameobjects.board;
 
-import gameengine.Coordinate;
+import gameengine.position.Coordinate;
 import gameobjects.units.Unit;
+import gameobjects.units.players.Sheep;
+import gameobjects.units.players.Wolf;
 
 public class BoardCell {
     private CellState state;
@@ -33,6 +35,10 @@ public class BoardCell {
         this.numberCoordinate = yCoordinate + 1;
         this.state = state;
         this.color = color;
+        switch (state){
+            case WOLF: unit = new Wolf(); break;
+            case SHEEP: unit = new Sheep(); break;
+        }
     }
 
     public CellState getState() {

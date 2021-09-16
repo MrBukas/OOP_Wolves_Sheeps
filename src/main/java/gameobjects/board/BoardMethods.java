@@ -1,5 +1,7 @@
 package gameobjects.board;
 
+import gameengine.position.BoardConverter;
+import gameengine.position.Coordinate;
 import gameobjects.units.Unit;
 import gameobjects.units.UnitMethods;
 
@@ -67,15 +69,22 @@ public class BoardMethods {
 
 
     public static boolean moveUnit(Board board,
-                                   char letterStart, int numberStart,
-                                   char letterEnd, int numberEnd){
-        BoardCell startCell = board.getCell(letterStart, numberStart);
-        BoardCell endCell = board.getCell(letterEnd, numberEnd);
+                                   Coordinate startCoordinate,
+                                   Coordinate endCoordinate){
+        BoardCell startCell = board.getCell(
+                BoardConverter.boardNumberToHeight(startCoordinate.getNumber()),
+                BoardConverter.boardLetterToWidth(startCoordinate.getLetter())
+                );
+        BoardCell endCell = board.getCell(
+                BoardConverter.boardNumberToHeight(endCoordinate.getNumber()),
+                BoardConverter.boardLetterToWidth(endCoordinate.getLetter())
+        );
+        //TODO убедиться что Cell и Coordinate совпадают
         Unit unit = startCell.getUnit();
-        if (UnitMethods.checkIfCanWalk(board,endCell,unit)){
-            return false;
-        }
-        endCell.setUnit(startCell.getUnit());
+//        if (UnitMethods.checkIfCanWalk(board,endCell,unit)){
+//            return false;
+//        }
+        endCell.setUnit(unit);
         startCell.clearUnit();
         return true;
 

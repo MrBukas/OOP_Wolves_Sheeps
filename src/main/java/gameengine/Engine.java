@@ -1,5 +1,7 @@
 package gameengine;
 
+import gameengine.position.BoardConverter;
+import gameengine.position.Coordinate;
 import gameobjects.board.Board;
 import gameobjects.board.BoardCell;
 import gameobjects.board.BoardMethods;
@@ -24,18 +26,28 @@ public class Engine {
             System.out.println("Выберите юнит");
             Coordinate unitCoordinate = commandReader.readCommand(CommandType.COORDINATE);
             Unit selectedUnit = board
-                    .getCell(unitCoordinate.getLetter(), unitCoordinate.getNumber())
+                    .getCell(
+                            BoardConverter.boardNumberToHeight(unitCoordinate.getNumber()),
+                            BoardConverter.boardLetterToWidth(unitCoordinate.getLetter()))
                     .getUnit();
-            System.out.println("Доступные шаги");
+            if (selectedUnit == null){
+                System.out.println("Вы выбрали пустую клетку");
+                continue;
+            }
+            System.out.println("Доступные шаги:");
             List<BoardCell> availableCells = UnitMethods.getAvailableSteps(
                     board,
                     selectedUnit,
-                    unitCoordinate.getLetter(),
-                    unitCoordinate.getNumber());
+                    BoardConverter.boardLetterToWidth(unitCoordinate.getLetter()),
+                    BoardConverter.boardNumberToHeight(unitCoordinate.getNumber()));
             for (BoardCell cell: availableCells) {
-                System.out.print(cell.getLetterCoordinate() + cell.getNumberCoordinate() + " ");
+                System.out.print(cell.getLetterCoordinate() + "" + cell.getNumberCoordinate() + " ");
             }
-            System.out.println("Выберите координату");
+            System.out.println();
+            System.out.println("Выберите координату (куда пойти)");
+            Coordinate endCoordinate = commandReader.readCommand(CommandType.COORDINATE);
+            BoardMethods.moveUnit(board,unitCoordinate,endCoordinate);
         }
     }
+
 }

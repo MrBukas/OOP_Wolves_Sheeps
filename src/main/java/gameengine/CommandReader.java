@@ -1,6 +1,8 @@
 package gameengine;
 
 
+import gameengine.position.Coordinate;
+
 import java.util.Scanner;
 
 public class CommandReader {
