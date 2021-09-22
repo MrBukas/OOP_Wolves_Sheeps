@@ -1,6 +1,7 @@
 package gameobjects.units;
 
 import gameengine.position.BoardConverter;
+import gameengine.position.Coordinate;
 import gameobjects.board.Board;
 import gameobjects.board.BoardCell;
 
@@ -15,40 +16,57 @@ public class UnitMethods {
      * @return Возвращает массив BoardCell на которые
      * может походить юнит
      */
-    public static List<BoardCell> getAvailableSteps(Board board, Unit unit, int widthCoordinate, int heightCoordinate){
-        List<BoardCell> possibleMoves = new LinkedList<BoardCell>();
+    public static List<Coordinate> getAvailableSteps(Board board, Unit unit, int widthCoordinate, int heightCoordinate){
+        List<Coordinate> possibleMoves = new LinkedList<>();
         switch (unit.getWalkDirection()){
             case UPWARD:
-                if ((heightCoordinate < board.getHeight()) && (widthCoordinate + 1 < board.getWidth())){
-                    possibleMoves.add(board.getCell(heightCoordinate, widthCoordinate));
+                if ((heightCoordinate > 0) && (widthCoordinate + 1 < board.getWidth() - 1)){ //Вправо вверх
+                    possibleMoves.add(new Coordinate(
+                            BoardConverter.widthToBoardLetter(widthCoordinate + 1),
+                            BoardConverter.heightToBoardNumber(heightCoordinate - 1)));
                 }
-                if ((heightCoordinate < board.getHeight()) && (widthCoordinate - 1 >= 0)){
-                    possibleMoves.add(board.getCell(heightCoordinate, widthCoordinate));
+                if ((heightCoordinate > 0) && (widthCoordinate > 0)){ //Влево вверх
+                    possibleMoves.add(new Coordinate(
+                            BoardConverter.widthToBoardLetter(widthCoordinate - 1),
+                            BoardConverter.heightToBoardNumber(heightCoordinate - 1)));
                 }
                 break;
             case BIDIRECTIONAL:
-                if ((heightCoordinate < board.getHeight()) && (widthCoordinate + 1 < board.getWidth())){
-                possibleMoves.add(board.getCell(heightCoordinate, widthCoordinate));
+                if ((heightCoordinate > 0) && (widthCoordinate + 1 < board.getWidth() - 1)){ //Вправо вверх
+                    possibleMoves.add(new Coordinate(
+                            BoardConverter.widthToBoardLetter(widthCoordinate + 1),
+                            BoardConverter.heightToBoardNumber(heightCoordinate - 1)));
                 }
-                if ((heightCoordinate < board.getHeight()) && (widthCoordinate - 1 >= 0)){
-                    possibleMoves.add(board.getCell(heightCoordinate, widthCoordinate));
+                if ((heightCoordinate > 0) && (widthCoordinate > 0)){ //Влево вверх
+                    possibleMoves.add(new Coordinate(
+                            BoardConverter.widthToBoardLetter(widthCoordinate - 1),
+                            BoardConverter.heightToBoardNumber(heightCoordinate - 1)));
                 }
-                if ((heightCoordinate >= 0) && (widthCoordinate + 1 < board.getWidth())){
-                    possibleMoves.add(board.getCell(heightCoordinate, widthCoordinate));
-                }
-                if ((heightCoordinate >= 0) && (widthCoordinate - 1 >= 0)){
-                    possibleMoves.add(board.getCell(heightCoordinate, widthCoordinate));
-                }
+                if ((heightCoordinate + 1 < board.getHeight() - 1) && (widthCoordinate + 1 < board.getWidth() - 1)){ //Вправо вниз
+                   possibleMoves.add(new Coordinate(
+                           BoardConverter.widthToBoardLetter(widthCoordinate + 1),
+                           BoardConverter.heightToBoardNumber(heightCoordinate + 1)));
+               }
+               if ((heightCoordinate + 1 < board.getHeight() - 1) && (widthCoordinate > 0)){ //Влево вниз
+                   possibleMoves.add(new Coordinate(
+                           BoardConverter.widthToBoardLetter(widthCoordinate - 1),
+                           BoardConverter.heightToBoardNumber(heightCoordinate + 1)));
+               }
                 break;
             case DOWNWARD:
-                if ((heightCoordinate >= 0) && (widthCoordinate + 1 < board.getWidth())){
-                    possibleMoves.add(board.getCell(heightCoordinate, widthCoordinate));
+                if ((heightCoordinate + 1 < board.getHeight() - 1) && (widthCoordinate + 1 < board.getWidth() - 1)){ //Вправо вниз
+                    possibleMoves.add(new Coordinate(
+                            BoardConverter.widthToBoardLetter(widthCoordinate + 1),
+                            BoardConverter.heightToBoardNumber(heightCoordinate + 1)));
                 }
-                if ((heightCoordinate >= 0) && (widthCoordinate - 1 >= 0)){
-                    possibleMoves.add(board.getCell(heightCoordinate, widthCoordinate));
-                }break;
+                if ((heightCoordinate + 1 < board.getHeight() - 1) && (widthCoordinate > 0)){ //Влево вниз
+                    possibleMoves.add(new Coordinate(
+                            BoardConverter.widthToBoardLetter(widthCoordinate - 1),
+                            BoardConverter.heightToBoardNumber(heightCoordinate + 1)));
+                }
         }
 
+//        TODO поверять чтобы в клетке не было другой фигуры (цикл)
         return possibleMoves;
     }
 

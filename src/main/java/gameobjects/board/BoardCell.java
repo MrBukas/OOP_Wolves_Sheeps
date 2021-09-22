@@ -78,10 +78,13 @@ public class BoardCell {
     }
 
     public void setUnit(Unit unit) {
+        if (unit instanceof Wolf) this.state = CellState.WOLF;
+        if (unit instanceof Sheep) this.state = CellState.SHEEP;
         this.unit = unit;
     }
 
     public void clearUnit(){
-        unit = null;
+        this.state = CellState.FREE;
+        this.unit = null;
     }
 }

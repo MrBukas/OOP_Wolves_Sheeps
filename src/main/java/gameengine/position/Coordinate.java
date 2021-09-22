@@ -1,9 +1,14 @@
 package gameengine.position;
 
-public class Coordinate {
+public class Coordinate implements Comparable<Coordinate>{
     private char letter;
     private int number;
 
+    /**
+     * Хранит в себе координату в привычном виде (типа A1)
+     * @param letter
+     * @param number
+     */
     public Coordinate(char letter, int number) {
         this.letter = letter;
         this.number = number;
@@ -28,5 +33,20 @@ public class Coordinate {
 
     public static char numberToChar(int coordinate){//Не факт что работает корректно
         return (char) (coordinate + 65);
+    }
+
+    @Override
+    public int compareTo(Coordinate o) {
+        return hashCode() - o.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return letter * 10 + number;
+    }
+
+    @Override
+    public String toString() {
+        return letter + "" + number;
     }
 }

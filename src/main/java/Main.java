@@ -1,4 +1,5 @@
 import gameengine.CommandReader;
+import gameengine.CommandType;
 import gameengine.position.BoardConverter;
 import gameengine.position.Coordinate;
 import gameengine.Engine;
@@ -11,9 +12,6 @@ public class Main {
                 new Scanner(System.in)
         );
         Engine engine = new Engine(commandReader);
-
-
-
         engine.startGame();
     }
 }
