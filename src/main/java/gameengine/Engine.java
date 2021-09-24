@@ -8,6 +8,7 @@ import gameobjects.board.BoardMethods;
 import gameobjects.board.CellState;
 import gameobjects.units.Unit;
 import gameobjects.units.UnitMethods;
+import gameobjects.units.players.Sheep;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -21,11 +22,17 @@ public class Engine {
     }
 
     public void startGame(){
-        Board board = new Board(new File("src/main/resources/board1.txt"));//TODO Получать файл
-        BoardMethods.printBoard(board);
+        Board board = new Board(new File("src/main/resources/board1.txt"));
+
         boolean sheepTurn = true;
 
         while (true) {//Условие завершения игры
+            if (sheepTurn){
+                System.out.println("Ход ОВЦЫ");
+            }else {
+                System.out.println("Ход ВОЛКА");
+            }
+            BoardMethods.printBoard(board);
             System.out.println("Выберите юнит");
             Coordinate unitCoordinate = commandReader.readCommand(CommandType.COORDINATE);
             Unit selectedUnit = board
@@ -35,6 +42,10 @@ public class Engine {
                     .getUnit();
             if (selectedUnit == null){
                 System.out.println("Вы выбрали пустую клетку");
+                continue;
+            }
+            if (sheepTurn != (selectedUnit instanceof Sheep)){
+                System.out.println("Вы выбрали не своего юнита");
                 continue;
             }
             System.out.println("Доступные шаги:");
@@ -49,8 +60,8 @@ public class Engine {
             System.out.println();
             System.out.println("Выберите координату (куда пойти)");
             Coordinate endCoordinate = commandReader.readCommand(CommandType.COORDINATE);
-            if (availableCells.contains(endCoordinate))
-                BoardMethods.moveUnit(board,unitCoordinate,endCoordinate);
+            if (checkIfListContainsCoordinate(availableCells, endCoordinate))
+                BoardMethods.moveUnit(board,unitCoordinate, endCoordinate);
             else
                 System.out.println("Нельзя пойти в выбранную клетку");
 
@@ -64,6 +75,13 @@ public class Engine {
             }
             sheepTurn = !sheepTurn;
         }
+    }
+
+    private boolean checkIfListContainsCoordinate(List<Coordinate> coordinates, Coordinate target){
+        for (Coordinate coordinate : coordinates) {
+            if (coordinate.compareTo(target) == 0) return true;
+        }
+        return false;
     }
 
     private boolean checkSheepWin(Board board){

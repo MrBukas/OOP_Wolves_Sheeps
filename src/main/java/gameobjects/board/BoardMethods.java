@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class BoardMethods {
     private static final Map<CellState, String> cellStateCodeMap = Map.of(
-            CellState.FREE,".",
+            CellState.FREE," ",
             CellState.SHEEP, "S",
             CellState.WOLF,"W"
             );
@@ -23,7 +23,6 @@ public class BoardMethods {
 
     public static Board readBoard(File boardData){
         BoardCell[][] cells = new BoardCell[8][8];
-        //TODO заполнить cell-ы
         CellColor[] colors = CellColor.values();
         int colorCount = colors.length;
         int currentColor = 1;
@@ -31,11 +30,11 @@ public class BoardMethods {
         try {
             scanner = new Scanner(boardData);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return null;
         }
 
         for (int i = 0; i < cells.length; i++) {
-            assert scanner != null;//TODO создать альтернативный путь чтения доски
+//            assert scanner != null;
             String line = scanner.nextLine();
             for (int j = 0; j < cells[i].length; j++) {
                 currentColor = (currentColor + 1) % colorCount;
@@ -48,6 +47,7 @@ public class BoardMethods {
                 }
                 cells[i][j] = new BoardCell(i, j, state, colors[currentColor]);
             }
+            currentColor--;
         }
 
         return new Board(cells);
@@ -57,14 +57,29 @@ public class BoardMethods {
         return cellStateCodeMap.get(state);
     }
 
+    public static String getCellColor(BoardCell cell){
+        final String BLACK = "\u001B[40m";
+        final String WHITE= "\u001B[47m";
+        switch (cell.getColor()){
+            case BLACK: return BLACK;
+            case WHITE: return WHITE;
+        }
+        final String RESET = "\u001B[0m";
+        return RESET;
+    }
+
+
+
     public static void printBoard(Board board){
+        final String RESET = "\u001B[0m";
         BoardCell[][] cells = board.getGameBoard();
         for (BoardCell[] row : cells) {
             for (BoardCell cell : row) {
-                System.out.print(getCellStateCode(cell.getState()));
+                System.out.print(getCellColor(cell) + " " +  getCellStateCode(cell.getState()) + " ");
             }
-            System.out.println();
+            System.out.println(RESET);
         }
+        System.out.println(RESET);
     }
 
 
@@ -79,11 +94,7 @@ public class BoardMethods {
                 BoardConverter.boardNumberToHeight(endCoordinate.getNumber()),
                 BoardConverter.boardLetterToWidth(endCoordinate.getLetter())
         );
-        //TODO убедиться что Cell и Coordinate совпадают
         Unit unit = startCell.getUnit();
-//        if (UnitMethods.checkIfCanWalk(board,endCell,unit)){
-//            return false;
-//        }
         endCell.setUnit(unit);
         startCell.clearUnit();
         return true;

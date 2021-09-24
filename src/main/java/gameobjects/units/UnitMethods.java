@@ -66,9 +66,19 @@ public class UnitMethods {
                 }
         }
 
-//        TODO поверять чтобы в клетке не было другой фигуры (цикл)
+        for (int i = 0; i < possibleMoves.size(); i++) {
+            Coordinate coordinate = possibleMoves.get(i);
+            if (board.getCell(
+                    BoardConverter.boardNumberToHeight(coordinate.getNumber()),
+                    BoardConverter.boardLetterToWidth(coordinate.getLetter())).getUnit() != null
+            ){
+                possibleMoves.remove(i);
+                i--;
+            }
+        }
         return possibleMoves;
     }
+    //....
 
     public static boolean checkIfCanWalk(Board board, BoardCell cell, Unit unit) {
         return  getAvailableSteps(
