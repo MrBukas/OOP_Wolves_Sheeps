@@ -62,9 +62,10 @@ public class Engine {
             Coordinate endCoordinate = commandReader.readCommand(CommandType.COORDINATE);
             if (checkIfListContainsCoordinate(availableCells, endCoordinate))
                 BoardMethods.moveUnit(board,unitCoordinate, endCoordinate);
-            else
+            else{
                 System.out.println("Нельзя пойти в выбранную клетку");
-
+                continue;
+            }
             if (checkSheepWin(board)) {
                 System.out.println("Овца выиграла");
                 return;
