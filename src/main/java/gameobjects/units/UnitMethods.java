@@ -16,6 +16,14 @@ public class UnitMethods {
      * @return Возвращает массив BoardCell на которые
      * может походить юнит
      */
+    public static List<gameobjects.board2.BoardCell> getSteps(gameobjects.board2.Board board, gameobjects.board2.BoardCell cell){
+        List<gameobjects.board2.BoardCell> list = new LinkedList<>();
+        for (Integer index: cell.getAvailableCells()) {
+            list.add(board.getCell(index));
+        }
+        return list;
+    }
+
     public static List<Coordinate> getAvailableSteps(Board board, Unit unit, int widthCoordinate, int heightCoordinate){
         List<Coordinate> possibleMoves = new LinkedList<>();
         switch (unit.getWalkDirection()){

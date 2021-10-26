@@ -34,7 +34,6 @@ public class BoardMethods {
         }
 
         for (int i = 0; i < cells.length; i++) {
-//            assert scanner != null;
             String line = scanner.nextLine();
             for (int j = 0; j < cells[i].length; j++) {
                 currentColor = (currentColor + 1) % colorCount;
