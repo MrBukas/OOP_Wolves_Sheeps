@@ -2,16 +2,12 @@ package gameengine;
 
 import gameengine.position.BoardConverter;
 import gameengine.position.Coordinate;
-import gameobjects.board.Board;
-import gameobjects.board.BoardCell;
-import gameobjects.board.BoardMethods;
 import gameobjects.board.CellState;
-import gameobjects.units.Unit;
-import gameobjects.units.UnitMethods;
-import gameobjects.units.players.Sheep;
+import gameobjects.board2.Board;
+import gameobjects.board2.BoardCell;
+import gameobjects.board2.BoardMethods;
 
 import java.io.File;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Engine {
@@ -35,32 +31,27 @@ public class Engine {
             BoardMethods.printBoard(board);
             System.out.println("Выберите юнит");
             Coordinate unitCoordinate = commandReader.readCommand(CommandType.COORDINATE);
-            Unit selectedUnit = board
+            BoardCell selectedCell = board
                     .getCell(
                             BoardConverter.boardNumberToHeight(unitCoordinate.getNumber()),
-                            BoardConverter.boardLetterToWidth(unitCoordinate.getLetter()))
-                    .getUnit();
-            if (selectedUnit == null){
+                            BoardConverter.boardLetterToWidth(unitCoordinate.getLetter()));
+            if (selectedCell.getState() == CellState.FREE){
                 System.out.println("Вы выбрали пустую клетку");
                 continue;
             }
-            if (sheepTurn != (selectedUnit instanceof Sheep)){
+            if (sheepTurn != (selectedCell.getState() == CellState.SHEEP)){
                 System.out.println("Вы выбрали не своего юнита");
                 continue;
             }
             System.out.println("Доступные шаги:");
-            List<Coordinate> availableCells = UnitMethods.getAvailableSteps(
-                    board,
-                    selectedUnit,
-                    BoardConverter.boardLetterToWidth(unitCoordinate.getLetter()),
-                    BoardConverter.boardNumberToHeight(unitCoordinate.getNumber()));
-            for (Coordinate cell: availableCells) {
-                System.out.print(cell + " ");
+            
+            for (Integer cell: selectedCell.getAvailableCells()) {
+                System.out.print(String.valueOf(widthToBoardLetter(cell % 8)) + (8 - (cell / 8)) + " ");
             }
             System.out.println();
             System.out.println("Выберите координату (куда пойти)");
             Coordinate endCoordinate = commandReader.readCommand(CommandType.COORDINATE);
-            if (checkIfListContainsCoordinate(availableCells, endCoordinate))
+            if (checkIfListContainsCoordinate(selectedCell.getAvailableCells(), endCoordinate.toIndex()))
                 BoardMethods.moveUnit(board,unitCoordinate, endCoordinate);
             else{
                 System.out.println("Нельзя пойти в выбранную клетку");
@@ -78,9 +69,9 @@ public class Engine {
         }
     }
 
-    private boolean checkIfListContainsCoordinate(List<Coordinate> coordinates, Coordinate target){
-        for (Coordinate coordinate : coordinates) {
-            if (coordinate.compareTo(target) == 0) return true;
+    private boolean checkIfListContainsCoordinate(List<Integer> coordinates, Integer target){
+        for (Integer coordinate : coordinates) {
+            if (coordinate.equals(target)) return true;
         }
         return false;
     }
@@ -98,17 +89,16 @@ public class Engine {
         for (int i = 0; i < gameBoard.length; i++) {
             for (int j = 0; j < gameBoard[i].length; j++) {
                 if (gameBoard[i][j].getState() == CellState.SHEEP){
-                    List<Coordinate> coordinates = UnitMethods.getAvailableSteps(
-                            board,
-                            gameBoard[i][j].getUnit(),
-                            j,
-                            i);
-
-                    return coordinates.size() == 0;
+                    return gameBoard[i][j].getAvailableCells().size() == 0;
                 }
             }
         }
         return false;
     }
+    private char widthToBoardLetter(int width){
+        return (char) ((char) width + 65);
+    }
+
+
 
 }

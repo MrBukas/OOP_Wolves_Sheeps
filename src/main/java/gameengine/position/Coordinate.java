@@ -30,6 +30,10 @@ public class Coordinate implements Comparable<Coordinate>{
         this.number = number;
     }
 
+    public int toIndex(){
+        return ((8 - number) * 8) + BoardConverter.boardLetterToWidth(letter);
+    }
+
 
     public static char numberToChar(int coordinate){//Не факт что работает корректно
         return (char) (coordinate + 65);

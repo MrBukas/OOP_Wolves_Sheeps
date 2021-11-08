@@ -17,6 +17,16 @@ public class Board {
         return cells[index];
     }
 
+    public BoardCell[][] getGameBoard(){
+        BoardCell[][] board = new BoardCell[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                board[i][j] = cells[j + 8*i];
+            }
+        }
+        return board;
+    }
+
     public int getHeight(){
         return size;
     }

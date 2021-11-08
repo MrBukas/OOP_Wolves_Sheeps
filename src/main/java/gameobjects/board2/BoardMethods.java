@@ -1,10 +1,13 @@
 package gameobjects.board2;
 
+import gameengine.position.BoardConverter;
+import gameengine.position.Coordinate;
 import gameobjects.board.CellColor;
 import gameobjects.board.CellState;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Scanner;
 
 public class BoardMethods {
@@ -13,7 +16,7 @@ public class BoardMethods {
         Scanner scanner = null;
         CellColor[] colors = CellColor.values();
         int colorCount = colors.length;
-        int currentColor = 1;
+        int currentColor = 0;
         try {
             scanner = new Scanner(boardData);
         } catch (FileNotFoundException e) {
@@ -32,12 +35,68 @@ public class BoardMethods {
                     case 'S': state = CellState.SHEEP; break;
                 }
                 int index = j + 8*i;
-                cells[index] = new BoardCell(state, colors[currentColor]);
+                cells[index] = new BoardCell(state, colors[currentColor], index);
                 cells[index].setAdjacentCells(setAdjacentCells(index));
             }
             currentColor--;
         }
-        return null;
+        return cells;
+    }
+    private static final Map<CellState, String> cellStateCodeMap = Map.of(
+            CellState.FREE," ",
+            CellState.SHEEP, "S",
+            CellState.WOLF,"W"
+    );
+
+
+
+
+    public static String getCellStateCode(CellState state){
+        return cellStateCodeMap.get(state);
+    }
+
+    public static String getCellColor(BoardCell cell){
+        final String BLACK = "\u001B[40m";
+        final String WHITE= "\u001B[47m";
+        switch (cell.getColor()){
+            case BLACK: return BLACK;
+            case WHITE: return WHITE;
+        }
+        final String RESET = "\u001B[0m";
+        return RESET;
+    }
+
+
+
+    public static void printBoard(Board board){
+        final String RESET = "\u001B[0m";
+        BoardCell[][] cells = board.getGameBoard();
+        for (BoardCell[] row : cells) {
+            for (BoardCell cell : row) {
+                System.out.print(getCellColor(cell) + " " + "\u001B[30m" + getCellStateCode(cell.getState()) + " ");
+            }
+            System.out.println(RESET);
+        }
+        System.out.println(RESET);
+    }
+
+
+    public static boolean moveUnit(Board board,
+                                   Coordinate startCoordinate,
+                                   Coordinate endCoordinate){
+        BoardCell startCell = board.getCell(
+                BoardConverter.boardNumberToHeight(startCoordinate.getNumber()),
+                BoardConverter.boardLetterToWidth(startCoordinate.getLetter())
+        );
+        BoardCell endCell = board.getCell(
+                BoardConverter.boardNumberToHeight(endCoordinate.getNumber()),
+                BoardConverter.boardLetterToWidth(endCoordinate.getLetter())
+        );
+        CellState unit = startCell.getState();
+        endCell.setState(unit);
+        startCell.clearUnit();
+        return true;
+
     }
 
     private static int[] setAdjacentCells(int id){
