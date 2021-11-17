@@ -9,10 +9,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class BoardMethods {
     final static int size = 8;
-    public static BoardCell[] readBoard(File boardData){
+    public static Map<Integer, BoardCell> readBoard(File boardData){
         Scanner scanner = null;
         CellColor[] colors = CellColor.values();
         int colorCount = colors.length;
@@ -22,7 +23,8 @@ public class BoardMethods {
         } catch (FileNotFoundException e) {
             return null;
         }
-        BoardCell[] cells = new BoardCell[size * size];
+        //BoardCell[] cells = new BoardCell[size * size];
+        Map<Integer, BoardCell> cells = new TreeMap<>();
         for (int i = 0; i < size; i++) {
             String line = scanner.nextLine();
             for (int j = 0; j < size; j++) {
@@ -35,8 +37,10 @@ public class BoardMethods {
                     case 'S': state = CellState.SHEEP; break;
                 }
                 int index = j + 8*i;
-                cells[index] = new BoardCell(state, colors[currentColor], index);
-                cells[index].setAdjacentCells(setAdjacentCells(index));
+                //cells[index] = new BoardCell(state, colors[currentColor], index);
+                cells.put(index, new BoardCell(state, colors[currentColor], index));
+                //cells[index].setAdjacentCells(setAdjacentCells(index));
+                cells.get(index).setAdjacentCells(setAdjacentCells(index));
             }
             currentColor--;
         }
