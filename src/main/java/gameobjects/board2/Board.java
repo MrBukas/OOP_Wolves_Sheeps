@@ -1,7 +1,10 @@
 package gameobjects.board2;
 
+import gameobjects.board.CellState;
+
 import java.io.File;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Board {
     private BoardCell[] cells2;
@@ -35,5 +38,13 @@ public class Board {
 
     public int getWidth(){
         return size;
+    }
+
+    public BoardCell getSheepCell(){
+        return cells
+                .values()
+                .stream()
+                .filter(cell -> cell.getState() == CellState.SHEEP)
+                .collect(Collectors.toList()).get(0);
     }
 }

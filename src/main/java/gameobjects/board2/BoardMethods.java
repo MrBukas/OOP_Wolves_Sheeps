@@ -12,7 +12,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class BoardMethods {
-    final static int size = 8;
+    public final static int size = 8;
     public static Map<Integer, BoardCell> readBoard(File boardData){
         Scanner scanner = null;
         CellColor[] colors = CellColor.values();

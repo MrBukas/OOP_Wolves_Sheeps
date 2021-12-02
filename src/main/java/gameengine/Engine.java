@@ -44,8 +44,9 @@ public class Engine {
                 continue;
             }
             System.out.println("Доступные шаги:");
-            
-            for (Integer cell: selectedCell.getAvailableCells()) {
+
+            List<Integer> availableMoves = selectedCell.getAvailableCells();
+            for (Integer cell: availableMoves) {
                 System.out.print(String.valueOf(widthToBoardLetter(cell % 8)) + (8 - (cell / 8)) + " ");
             }
             System.out.println();
@@ -77,23 +78,14 @@ public class Engine {
     }
 
     private boolean checkSheepWin(Board board){
-        BoardCell[][] gameBoard = board.getGameBoard();
-        for (int j = 0; j < gameBoard[0].length; j++) {
-            if (gameBoard[0][j].getState() == CellState.SHEEP) return true;
+        for (int j = 0; j < BoardMethods.size; j++) {
+            if (board.getCell(j).getState() == CellState.SHEEP) return true;
         }
         return false;
     }
 
     private boolean checkWolfWin(Board board){
-        BoardCell[][] gameBoard = board.getGameBoard();
-        for (int i = 0; i < gameBoard.length; i++) {
-            for (int j = 0; j < gameBoard[i].length; j++) {
-                if (gameBoard[i][j].getState() == CellState.SHEEP){
-                    return gameBoard[i][j].getAvailableCells().size() == 0;
-                }
-            }
-        }
-        return false;
+        return board.getSheepCell().getAvailableCells().size() == 0;
     }
     private char widthToBoardLetter(int width){
         return (char) ((char) width + 65);
