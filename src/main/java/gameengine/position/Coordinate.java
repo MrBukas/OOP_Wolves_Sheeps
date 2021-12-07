@@ -1,5 +1,7 @@
 package gameengine.position;
 
+import static gameengine.position.BoardConverter.widthToBoardLetter;
+
 public class Coordinate implements Comparable<Coordinate>{
     private char letter;
     private int number;
@@ -12,6 +14,11 @@ public class Coordinate implements Comparable<Coordinate>{
     public Coordinate(char letter, int number) {
         this.letter = letter;
         this.number = number;
+    }
+
+    public Coordinate(int index){
+        letter = widthToBoardLetter(index % 8);
+        number = 8 - (index / 8);
     }
 
     public char getLetter() {
@@ -47,6 +54,11 @@ public class Coordinate implements Comparable<Coordinate>{
     @Override
     public int hashCode() {
         return letter * 10 + number;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.hashCode() == obj.hashCode();
     }
 
     @Override

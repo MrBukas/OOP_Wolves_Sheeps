@@ -60,6 +60,9 @@ public class BoardCell {
         return color;
     }
 
+    public int getId() {
+        return id;
+    }
 
     private char widthToBoardLetter(int width){
         return (char) ((char) width + 65);

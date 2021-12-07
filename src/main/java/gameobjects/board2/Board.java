@@ -3,6 +3,7 @@ package gameobjects.board2;
 import gameobjects.board.CellState;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -40,11 +41,19 @@ public class Board {
         return size;
     }
 
-    public BoardCell getSheepCell(){
+    public List<BoardCell> getSheepCell(){
         return cells
                 .values()
                 .stream()
                 .filter(cell -> cell.getState() == CellState.SHEEP)
-                .collect(Collectors.toList()).get(0);
+                .collect(Collectors.toList());
+    }
+
+    public List<BoardCell> getWolfCells(){
+        return cells
+                .values()
+                .stream()
+                .filter(cell -> cell.getState() == CellState.WOLF)
+                .collect(Collectors.toList());
     }
 }

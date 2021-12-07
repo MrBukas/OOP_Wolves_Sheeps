@@ -9,6 +9,9 @@ public class BoardConverter {
         return 8 - number;
     }
 
+    public static String positionToString(int position){
+        return String.valueOf(widthToBoardLetter(position % 8)) + (8 - (position / 8)) + " ";
+    }
     public static char widthToBoardLetter(int width){
         return (char) ((char) width + 65);
     }
