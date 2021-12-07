@@ -1,8 +1,64 @@
-A1
-B2
-B8
-C7
-B2
-A3
-C7
-B6
+E:\OOP_Wolves_Sheeps>set
+LOCALAPPDATA=C:\Users\Nikita\AppData\Local
+ProgramFiles=C:\Program Files
+PROMPT=$P$G
+TEMP=C:\Users\Nikita\AppData\Local\Temp
+USERNAME=Nikita
+VBOX_MSI_INSTALL_PATH=E:\VirtualBox\
+BESIEGE_GAME_ASSEMBLIES=E:/Besiege/Besiege_Data\Managed/
+IDEA_INITIAL_DIRECTORY=C:\Users\Nikita\Desktop
+FPS_BROWSER_USER_PROFILE_STRING=Default
+HOMEDRIVE=C:
+OS=Windows_NT
+LOGONSERVER=\\DESKTOP-I9SNOND
+ADSK_CLM_WPAD_PROXY_CHECK=FALSE
+SystemDrive=C:
+NVTOOLSEXT_PATH=C:\Program Files\NVIDIA Corporation\NvToolsExt\
+IntelliJ IDEA=C:\Program Files\JetBrains\IntelliJ IDEA 2020.2.2\bin;
+NUMBER_OF_PROCESSORS=8
+GSTREAMER_1_0_ROOT_X86_64=C:\gstreamer\1.0\x86_64\
+PUBLIC=C:\Users\Public
+ProgramData=C:\ProgramData
+USERPROFILE=C:\Users\Nikita
+PROCESSOR_REVISION=9e09
+CommonProgramFiles(x86)=C:\Program Files (x86)\Common Files
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 158 Stepping 9, GenuineIntel
+CommonProgramW6432=C:\Program Files\Common Files
+NVCUDASAMPLES_ROOT=C:\ProgramData\NVIDIA Corporation\CUDA Samples\v8.0
+INTEL_DEV_REDIST=C:\Program Files (x86)\Common Files\Intel\Shared Libraries\
+FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer
+PROCESSOR_LEVEL=6
+SystemRoot=C:\WINDOWS
+ADSK_3DSMAX_x64_2018=E:\Autodesk\3ds Max 2018\
+APPDATA=C:\Users\Nikita\AppData\Roaming
+ADSK_3DSMAX_x64_2016=E:\Autodesk\3ds Max 2016\
+PSModulePath=C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW
+TERMINAL_EMULATOR=JetBrains-JediTerm
+GTK_BASEPATH=C:\Program Files (x86)\GtkSharp\2.12\
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_151
+ChocolateyLastPathUpdate=132524399381977122
+BESIEGE_UNITY_ASSEMBLIES=E:/Besiege/Besiege_Data\Managed/
+__INTELLIJ_COMMAND_HISTFILE__=C:\Users\Nikita\AppData\Roaming\JetBrains\IntelliJIdea2020.2\terminal\history\hi
+story-62
+USERDOMAIN=DESKTOP-I9SNOND
+MIC_LD_LIBRARY_PATH=C:\Program Files (x86)\Common Files\Intel\Shared Libraries\compiler\lib\intel64_win_mic
+SESSIONNAME=Console
+ProgramFiles(x86)=C:\Program Files (x86)
+ALLUSERSPROFILE=C:\ProgramData
+HOMEPATH=\Users\Nikita
+DriverData=C:\Windows\System32\Drivers\DriverData
+windir=C:\WINDOWS
+TMP=C:\Users\Nikita\AppData\Local\Temp
+ComSpec=C:\WINDOWS\system32\cmd.exe
+Smt=E:\SmarTooth\src\res\cfg.txt
+Path=%M2%;%M2%
+OneDriveConsumer=C:\Users\Nikita\OneDrive
+NVCUDASAMPLES8_0_ROOT=C:\ProgramData\NVIDIA Corporation\CUDA Samples\v8.0
+COMPUTERNAME=DESKTOP-I9SNOND
+PROCESSOR_ARCHITECTURE=AMD64
+ChocolateyInstall=C:\ProgramData\chocolatey
+OneDrive=C:\Users\Nikita\OneDrive
+USERDOMAIN_ROAMINGPROFILE=DESKTOP-I9SNOND
+CommonProgramFiles=C:\Program Files\Common Files
+ProgramW6432=C:\Program Files
