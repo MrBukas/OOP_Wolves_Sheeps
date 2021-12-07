@@ -14,7 +14,7 @@ import java.util.TreeMap;
 public class BoardMethods {
     public final static int size = 8;
     public static Map<Integer, BoardCell> readBoard(File boardData){
-        Scanner scanner = null;
+        Scanner scanner;
         CellColor[] colors = CellColor.values();
         int colorCount = colors.length;
         int currentColor = 0;
@@ -23,7 +23,6 @@ public class BoardMethods {
         } catch (FileNotFoundException e) {
             return null;
         }
-        //BoardCell[] cells = new BoardCell[size * size];
         Map<Integer, BoardCell> cells = new TreeMap<>();
         for (int i = 0; i < size; i++) {
             String line = scanner.nextLine();
@@ -37,9 +36,7 @@ public class BoardMethods {
                     case 'S': state = CellState.SHEEP; break;
                 }
                 int index = j + 8*i;
-                //cells[index] = new BoardCell(state, colors[currentColor], index);
                 cells.put(index, new BoardCell(state, colors[currentColor], index));
-                //cells[index].setAdjacentCells(setAdjacentCells(index));
                 cells.get(index).setAdjacentCells(setAdjacentCells(index));
             }
             currentColor--;
@@ -100,8 +97,8 @@ public class BoardMethods {
         endCell.setState(unit);
         startCell.clearUnit();
         return true;
-
     }
+
 
     private static int[] setAdjacentCells(int id){
         int[] difs = {-9,-8,-7,-1,1,7,8,9};
@@ -134,9 +131,5 @@ public class BoardMethods {
             adj[7] = -1;
         }
         return adj;
-    }
-
-    public static void main(String[] args) {
-        readBoard(new File("src/main/resources/board1.txt"));
     }
 }

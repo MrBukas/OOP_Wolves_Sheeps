@@ -1,15 +1,12 @@
 package gameobjects.board2;
-
-import gameengine.position.BoardConverter;
 import gameobjects.board.CellColor;
 import gameobjects.board.CellState;
-import gameobjects.units.Unit;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class BoardCell {
-    private int id;
+    private final int id;
     private CellState state;
     private CellColor color;
 //    Если соседней ячейки нет, то её индекс -1
@@ -25,7 +22,7 @@ public class BoardCell {
 
 
     public int[] getAdjacentCells() {
-        return adjacentCells;
+        return adjacentCells.clone();
     }
 
     public List<Integer> getAvailableCells(){

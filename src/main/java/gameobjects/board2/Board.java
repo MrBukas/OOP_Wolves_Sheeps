@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Board {
-    private BoardCell[] cells2;
     private Map<Integer, BoardCell> cells;
     final int size = BoardMethods.size;
     public Board(File boardFile) {

@@ -15,8 +15,4 @@ public class BoardConverter {
     public static char widthToBoardLetter(int width){
         return (char) ((char) width + 65);
     }
-
-    public static int heightToBoardNumber(int height){
-        return 8 - height;
-    }
 }

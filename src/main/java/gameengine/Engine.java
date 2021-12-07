@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 public class Engine {
     CommandReader commandReader;
-    int stepCount = 0;
 
     public Engine(CommandReader commandReader) {
         this.commandReader = commandReader;
@@ -29,42 +28,36 @@ public class Engine {
 
         List<Integer> availableMoves;
         while (true) {//Условие завершения игры
-            stepCount++;
-            if (stepCount == 500){
-                System.out.println("Loop");
-            }
             if (sheepTurn){
                 System.out.println("Ход ОВЦЫ");
                 availableMoves = board.getSheepCell().stream().map(BoardCell::getId).collect(Collectors.toList());
             }else {
-                System.out.println("Ход ВОЛКА");
                 triedSteps.clear();
                 availableMoves = board.getWolfCells().stream().map(BoardCell::getId).collect(Collectors.toList());
-                //волки
-                boolean flag = false;
+                boolean noStepsFlag = false;
                 for (int wolf = 0; wolf < 4; wolf++) {
                     Coordinate unitCoordinate = new Coordinate(availableMoves.get(wolf));
                     List<Integer> availableCells = board
                             .getCell(
                                     BoardConverter.boardNumberToHeight(unitCoordinate.getNumber()),
                                     BoardConverter.boardLetterToWidth(unitCoordinate.getLetter())).getAvailableCells();
-                    if ( availableCells.size() > 0){
+                    if (availableCells.size() > 0){
                         for (Integer cell: availableCells) {
                             if (board.getCell(cell).getState() == CellState.FREE){
-                                flag = true;
+                                noStepsFlag = true;
                             }
                         }
                     }
-                    //board.getCell(endCoordinate.toIndex()).getState() == CellState.FREE
-
                 }
-                if (!flag) {
-                    System.out.println("Овца выиграла");
+                if (!noStepsFlag) {
+                    System.out.println("Овца выиграла (У волков нет доступных шагов)");
                     return;
                 }
+                System.out.println("Ход ВОЛКА");
             }
             BoardMethods.printBoard(board);
             System.out.println("Выберите юнит");
+            //Для "ручного" ввода
             //Coordinate unitCoordinate = commandReader.readCommand(CommandType.COORDINATE);
             Coordinate unitCoordinate = new Coordinate(availableMoves.get(randomizer.nextInt(availableMoves.size())));
             System.out.println();
@@ -155,9 +148,6 @@ public class Engine {
 
     private boolean checkWolfWin(Board board){
         return board.getSheepCell().get(0).getAvailableCells().size() == 0;
-    }
-    private char widthToBoardLetter(int width){
-        return (char) ((char) width + 65);
     }
 
 
